@@ -3,7 +3,7 @@ import AWPicsumServices
 
 struct PhotoDetailView: View {
     let photo: PicsumPhoto
-    @ObservedObject var viewModel: DemoViewModel
+    var viewModel: DemoViewModel
 
     var body: some View {
         ScrollView {

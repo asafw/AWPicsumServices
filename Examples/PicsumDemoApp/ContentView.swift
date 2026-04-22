@@ -3,15 +3,11 @@ import AWPicsumServices
 
 struct ContentView: View {
 
-    @StateObject private var viewModel = DemoViewModel()
+    @State private var viewModel = DemoViewModel()
 
     var body: some View {
         Group {
-            if #available(macOS 13.0, *) {
-                NavigationStack { navigationContent }
-            } else {
-                NavigationView { navigationContent }
-            }
+            NavigationStack { navigationContent }
         }
         .onAppear { viewModel.loadFirstPage() }
         .sheet(item: $viewModel.selectedPhoto) { photo in

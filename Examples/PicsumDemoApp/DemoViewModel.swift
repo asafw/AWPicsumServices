@@ -1,29 +1,51 @@
 import Foundation
-import Combine
+import Observation
 import AWPicsumServices
 
 /// Drives the demo UI. Conforms to `PicsumPhotosProtocol` so it exercises the
 /// full public API surface of AWPicsumServices via the mixin pattern.
-final class DemoViewModel: ObservableObject, PicsumPhotosProtocol {
+@Observable
+final class DemoViewModel: PicsumPhotosProtocol {
 
     // PicsumPhotosProtocol — URLSession.shared is sufficient for the demo.
     var urlSession: URLSession { .shared }
 
     // MARK: - Pagination state
 
-    @Published var photos: [PicsumPhoto] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
+    var photos: [PicsumPhoto] = []
+    var isLoading: Bool = false
+    var errorMessage: String? = nil
 
     private var currentPage: Int = 1
     private let pageSize: Int = 30
 
     // MARK: - Detail state
 
-    @Published var selectedPhoto: PicsumPhoto? = nil
-    @Published var detailImageData: Data? = nil
-    @Published var isLoadingDetail: Bool = false
-    @Published var detailError: String? = nil
+    var selectedPhoto: PicsumPhoto? = nil
+    var detailImageData: Data? = nil
+    var isLoadingDetail: Bool = false
+    var detailError: String? = nil
+
+    // MARK: - Init
+
+    init() {
+        #if DEBUG
+        let env = ProcessInfo.processInfo.environment
+
+        // MOCK_DETAIL seam: pre-selects the first loaded photo as a sheet so
+        // script-driven macOS screenshots can capture it without mouse clicks.
+        // Works together with the photos array being populated on appear.
+        if env["MOCK_DETAIL"] != nil {
+            // Observe photos array so we can select the first one once loaded.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 14.0) { [weak self] in
+                guard let self else { return }
+                if let first = self.photos.first {
+                    self.selectPhoto(first)
+                }
+            }
+        }
+        #endif
+    }
 
     // MARK: - Actions
 

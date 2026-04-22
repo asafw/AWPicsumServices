@@ -30,7 +30,7 @@ struct PhotoThumbnailView: View {
 
 /// A grid of all loaded Picsum photos, with infinite-scroll pagination.
 struct PhotoGridView: View {
-    @ObservedObject var viewModel: DemoViewModel
+    var viewModel: DemoViewModel
 
     private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 160), spacing: 4)
@@ -58,16 +58,10 @@ struct PhotoGridView: View {
                 }
 
                 if viewModel.isLoading {
-                    if #available(macOS 13.0, *) {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .gridCellColumns(columns.count)
-                    } else {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    }
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .gridCellColumns(columns.count)
                 }
             }
             .padding(4)
