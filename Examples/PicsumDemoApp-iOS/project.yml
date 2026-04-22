@@ -30,3 +30,14 @@ targets:
           - UIInterfaceOrientationLandscapeRight
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: false
+
+  PicsumDemoScreenshots:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: Screenshots
+    dependencies:
+      - target: PicsumDemoApp-iOS
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
