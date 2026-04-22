@@ -4,9 +4,9 @@
 > Update this file at the end of every session that makes code changes.
 
 ## Latest commit
-- **Hash:** 78b19c5
+- **Hash:** b0eba30
 - **Branch:** main
-- **Message:** audit: fix deprecated APIs, add Identifiable to library, update docs
+- **Message:** docs(readme): update all type names to AW prefix, fix platform versions, update mixin example
 
 ## Repository layout
 
@@ -101,6 +101,7 @@ public final class AWPicsumService: AWPicsumPhotosProtocol {
 ## Commit history
 | Hash | Message |
 |------|---------|
+| b0eba30 | docs(readme): update all type names to AW prefix, fix platform versions, update mixin example |
 | 78b19c5 | audit: fix deprecated APIs, add Identifiable to library, update docs |
 | e0be8dd | chore: add .gitignore, remove .build from tracking |
 | 7857a26 | refactor: add AW prefix to all public types |
