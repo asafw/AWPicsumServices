@@ -1,0 +1,30 @@
+name: macOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build
+        run: |
+          xcodebuild -scheme AWPicsumServices-Package \
+            -destination "generic/platform=macOS" \
+            build
+
+      - name: Test
+        run: |
+          xcodebuild -scheme AWPicsumServices-Package \
+            -destination "platform=macOS" \
+            -only-testing:AWPicsumServicesTests \
+            test

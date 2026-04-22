@@ -4,9 +4,9 @@
 > Update this file at the end of every session that makes code changes.
 
 ## Latest commit
-- **Hash:** b0eba30
+- **Hash:** (pending push)
 - **Branch:** main
-- **Message:** docs(readme): update all type names to AW prefix, fix platform versions, update mixin example
+- **Message:** ci: add iOS and macOS GitHub Actions workflows
 
 ## Repository layout
 
@@ -46,8 +46,9 @@ AWPicsumServices/
 ├── README.md
 ├── AGENTS.md
 └── .github/
-    ├── CONTEXT.md                  ← This file
-    └── instructions/
+    ├── CONTEXT.md                  ← This file    ├── workflows/
+    │   ├── ios.yml                 ← iOS CI (macos-15, xcodebuild, unit tests only)
+    │   └── macos.yml               ← macOS CI (macos-15, xcodebuild, unit tests only)    └── instructions/
         └── awpicsumservices.instructions.md
 ```
 
@@ -101,6 +102,7 @@ public final class AWPicsumService: AWPicsumPhotosProtocol {
 ## Commit history
 | Hash | Message |
 |------|---------|
+| (pending) | ci: add iOS and macOS GitHub Actions workflows |
 | b0eba30 | docs(readme): update all type names to AW prefix, fix platform versions, update mixin example |
 | 78b19c5 | audit: fix deprecated APIs, add Identifiable to library, update docs |
 | e0be8dd | chore: add .gitignore, remove .build from tracking |
@@ -110,5 +112,4 @@ public final class AWPicsumService: AWPicsumPhotosProtocol {
 | 2dea55d | docs: move Screenshots section after Demo App |
 
 ## Pending / future work
-- GitHub Actions CI (unit tests on macOS)
 - SPM release tag v1.0.0
