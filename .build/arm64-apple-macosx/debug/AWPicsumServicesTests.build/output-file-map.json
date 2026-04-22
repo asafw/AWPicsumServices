@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/master.swiftdeps"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Tests/AWPicsumServicesTests/AWPicsumServicesTests.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/AWPicsumServicesTests.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/AWPicsumServicesTests.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/AWPicsumServicesTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/AWPicsumServicesTests.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServicesTests.build/AWPicsumServicesTests.dia"
+  }
+}

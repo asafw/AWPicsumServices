@@ -1,0 +1,32 @@
+name: PicsumDemoApp-iOS
+options:
+  bundleIdPrefix: com.asafweinberg
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+
+packages:
+  AWPicsumServices:
+    path: ../..
+
+targets:
+  PicsumDemoApp-iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: ../PicsumDemoApp
+    dependencies:
+      - package: AWPicsumServices
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Picsum Demo
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false

@@ -1,0 +1,47 @@
+{
+  "": {
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/master.swiftdeps"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumAPIError.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIError.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIError.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIError~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIError.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIError.dia"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumAPIService.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIService.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIService.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIService~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIService.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumAPIService.dia"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumEndpoints.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumEndpoints.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumEndpoints.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumEndpoints~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumEndpoints.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumEndpoints.dia"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumModels.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumModels.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumModels.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumModels~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumModels.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumModels.dia"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumPhotosProtocol.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumPhotosProtocol.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumPhotosProtocol.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumPhotosProtocol~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumPhotosProtocol.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumPhotosProtocol.dia"
+  },
+  "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/Sources/AWPicsumServices/PicsumService.swift": {
+    "dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumService.d",
+    "object": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumService.swift.o",
+    "swiftmodule": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumService~partial.swiftmodule",
+    "swift-dependencies": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumService.swiftdeps",
+    "diagnostics": "/Users/a0w0onj/Desktop/asafw/AWPicsumServices/.build/arm64-apple-macosx/debug/AWPicsumServices.build/PicsumService.dia"
+  }
+}
