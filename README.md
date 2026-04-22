@@ -94,6 +94,11 @@ class MyViewModel: PicsumPhotosProtocol {
 |---|---|
 | ![macOS photo grid](screenshots/macos/macos_photo_grid.png) | ![macOS photo detail](screenshots/macos/macos_photo_detail.png) |
 
+### iOS
+| Photo Grid | Photo Detail |
+|---|---|
+| ![iOS photo grid](screenshots/ios/ios_photo_grid.png) | ![iOS photo detail](screenshots/ios/ios_photo_detail.png) |
+
 ## Demo App
 
 A SwiftUI demo app is included for macOS and iOS in `Examples/PicsumDemoApp`.
