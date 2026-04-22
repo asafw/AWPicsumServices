@@ -29,7 +29,7 @@ Before ending the conversation, the AI must:
 ```bash
 cd ~/Desktop/asafw/AWPicsumServices
 swift build
-swift test                                            # 37 unit tests, no network
+swift test                                            # 46 unit tests, no network
 swift test --filter AWPicsumServicesIntegrationTests  # live network (no CI)
 ```
 
