@@ -1,8 +1,9 @@
 # AWPicsumServices
 
-A dependency-free Swift Package for integrating the [Lorem Picsum](https://picsum.photos) photo API in iOS and macOS apps.
-
-Uses a **protocol mixin pattern**: conform to `PicsumPhotosProtocol` and gain full API access through protocol extension default implementations. No subclassing or object injection required.
+A Swift Package for integrating the [Lorem Picsum](https://picsum.photos) photo API in iOS and macOS applications. Has no external dependencies.
+Uses a **protocol mixin pattern** — conform any Swift type to `PicsumPhotosProtocol`
+and get full API access through protocol extension default implementations. No subclassing
+or dependency injection required.
 
 ## Features
 
