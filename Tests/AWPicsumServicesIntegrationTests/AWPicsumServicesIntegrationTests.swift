@@ -36,7 +36,7 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotosFirstPageReturnsPhotos() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         let photos = try await repository.getPhotos(
-            photosRequest: PicsumPhotosRequest(page: 1, limit: 5)
+            photosRequest: AWPicsumPhotosRequest(page: 1, limit: 5)
         )
         XCTAssertFalse(photos.isEmpty, "First page should return at least one photo")
         XCTAssertLessThanOrEqual(photos.count, 5)
@@ -45,7 +45,7 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotosResponseHasValidFields() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         let photos = try await repository.getPhotos(
-            photosRequest: PicsumPhotosRequest(page: 1, limit: 1)
+            photosRequest: AWPicsumPhotosRequest(page: 1, limit: 1)
         )
         let photo = try XCTUnwrap(photos.first, "Expected at least one photo")
         XCTAssertFalse(photo.id.isEmpty, "Photo id must not be empty")
@@ -59,10 +59,10 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotosSecondPageReturnsDifferentPhotos() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         let page1 = try await repository.getPhotos(
-            photosRequest: PicsumPhotosRequest(page: 1, limit: 5)
+            photosRequest: AWPicsumPhotosRequest(page: 1, limit: 5)
         )
         let page2 = try await repository.getPhotos(
-            photosRequest: PicsumPhotosRequest(page: 2, limit: 5)
+            photosRequest: AWPicsumPhotosRequest(page: 2, limit: 5)
         )
         let page1IDs = Set(page1.map { $0.id })
         let page2IDs = Set(page2.map { $0.id })
@@ -72,7 +72,7 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotosBeyondLastPageReturnsEmpty() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         let photos = try await repository.getPhotos(
-            photosRequest: PicsumPhotosRequest(page: 9999, limit: 30)
+            photosRequest: AWPicsumPhotosRequest(page: 9999, limit: 30)
         )
         XCTAssertTrue(photos.isEmpty, "A very high page number should return an empty array")
     }
@@ -82,7 +82,7 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotoByIDReturnsCorrectPhoto() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         // Photo 237 is a well-known Picsum photo (the dog)
-        let photo = try await repository.getPhoto(photoRequest: PicsumPhotoRequest(id: "237"))
+        let photo = try await repository.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "237"))
         XCTAssertEqual(photo.id, "237")
         XCTAssertFalse(photo.author.isEmpty)
         XCTAssertGreaterThan(photo.width, 0)
@@ -92,9 +92,9 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     func testGetPhotoInvalidIDThrowsNetworkError() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
         do {
-            _ = try await repository.getPhoto(photoRequest: PicsumPhotoRequest(id: "999999999"))
+            _ = try await repository.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "999999999"))
             XCTFail("Expected a network error for an invalid photo ID")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .networkError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -112,7 +112,7 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
 
     func testImageURLStringResolvesToNonEmptyData() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
-        let photo = try await repository.getPhoto(photoRequest: PicsumPhotoRequest(id: "10"))
+        let photo = try await repository.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "10"))
         let urlString = photo.imageURLString(width: 100, height: 100)
         let url = try XCTUnwrap(URL(string: urlString))
         let data = try await repository.downloadImageData(from: url)
@@ -120,18 +120,18 @@ final class PicsumPhotosIntegrationTests: XCTestCase {
     }
 }
 
-// MARK: - PicsumService integration
+// MARK: - AWPicsumService integration
 
 final class PicsumServiceIntegrationTests: XCTestCase {
 
     func testPicsumServiceConvenienceTypeWorksEndToEnd() async throws {
         try XCTSkipIf(isCI, "Skipping live network tests in CI")
-        let service = PicsumService()
-        let photos = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1, limit: 3))
+        let service = AWPicsumService()
+        let photos = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1, limit: 3))
         XCTAssertFalse(photos.isEmpty)
 
         let first = try XCTUnwrap(photos.first)
-        let info = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: first.id))
+        let info = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: first.id))
         XCTAssertEqual(info.id, first.id)
 
         let url = URL(string: info.imageURLString(width: 100, height: 100))!

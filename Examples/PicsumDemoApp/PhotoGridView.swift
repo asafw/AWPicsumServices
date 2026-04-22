@@ -1,9 +1,9 @@
 import SwiftUI
 import AWPicsumServices
 
-/// An async-loaded thumbnail for a single `PicsumPhoto`.
+/// An async-loaded thumbnail for a single `AWPicsumPhoto`.
 struct PhotoThumbnailView: View {
-    let photo: PicsumPhoto
+    let photo: AWPicsumPhoto
     let viewModel: DemoViewModel
 
     @State private var imageData: Data? = nil

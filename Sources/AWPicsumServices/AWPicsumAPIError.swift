@@ -1,5 +1,5 @@
 /// Errors thrown by AWPicsumServices.
-public enum PicsumAPIError: Error, Equatable {
+public enum AWPicsumAPIError: Error, Equatable {
     /// A URL could not be constructed from the given parameters, or a response
     /// could not be decoded into the expected model type.
     case parsingError

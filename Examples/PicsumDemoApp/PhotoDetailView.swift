@@ -2,7 +2,7 @@ import SwiftUI
 import AWPicsumServices
 
 struct PhotoDetailView: View {
-    let photo: PicsumPhoto
+    let photo: AWPicsumPhoto
     var viewModel: DemoViewModel
 
     var body: some View {

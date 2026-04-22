@@ -10,41 +10,41 @@ struct PicsumAPIService {
 
     // MARK: - Public methods
 
-    func getPhotos(photosRequest: PicsumPhotosRequest) async throws -> [PicsumPhoto] {
+    func getPhotos(photosRequest: AWPicsumPhotosRequest) async throws -> [AWPicsumPhoto] {
         let queryParams: [String: String] = [
             "page": String(photosRequest.page),
             "limit": String(photosRequest.limit),
         ]
         guard let url = generateURL(path: PicsumEndpoints.listPath, queryParams: queryParams) else {
-            throw PicsumAPIError.parsingError
+            throw AWPicsumAPIError.parsingError
         }
         let (data, response) = try await session.data(for: URLRequest(url: url))
-        guard validateHTTPResponse(response) else { throw PicsumAPIError.networkError }
+        guard validateHTTPResponse(response) else { throw AWPicsumAPIError.networkError }
         do {
-            return try JSONDecoder().decode([PicsumPhoto].self, from: data)
+            return try JSONDecoder().decode([AWPicsumPhoto].self, from: data)
         } catch {
-            throw PicsumAPIError.parsingError
+            throw AWPicsumAPIError.parsingError
         }
     }
 
-    func getPhoto(photoRequest: PicsumPhotoRequest) async throws -> PicsumPhoto {
+    func getPhoto(photoRequest: AWPicsumPhotoRequest) async throws -> AWPicsumPhoto {
         let path = String(format: PicsumEndpoints.infoPath, photoRequest.id)
         guard let url = generateURL(path: path) else {
-            throw PicsumAPIError.parsingError
+            throw AWPicsumAPIError.parsingError
         }
         let (data, response) = try await session.data(for: URLRequest(url: url))
-        guard validateHTTPResponse(response) else { throw PicsumAPIError.networkError }
+        guard validateHTTPResponse(response) else { throw AWPicsumAPIError.networkError }
         do {
-            return try JSONDecoder().decode(PicsumPhoto.self, from: data)
+            return try JSONDecoder().decode(AWPicsumPhoto.self, from: data)
         } catch {
-            throw PicsumAPIError.parsingError
+            throw AWPicsumAPIError.parsingError
         }
     }
 
     func downloadImageData(from url: URL) async throws -> Data {
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
         let (data, response) = try await session.data(for: request)
-        guard validateHTTPResponse(response) else { throw PicsumAPIError.networkError }
+        guard validateHTTPResponse(response) else { throw AWPicsumAPIError.networkError }
         return data
     }
 

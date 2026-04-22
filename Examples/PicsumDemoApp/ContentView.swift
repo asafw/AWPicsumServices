@@ -68,4 +68,4 @@ struct ContentView: View {
     }
 }
 
-extension PicsumPhoto: Identifiable {}
+extension AWPicsumPhoto: Identifiable {}

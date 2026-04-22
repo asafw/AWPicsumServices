@@ -1,7 +1,7 @@
 import Foundation
 
 /// A single photo from the Lorem Picsum library.
-public struct PicsumPhoto: Decodable, Hashable, Sendable {
+public struct AWPicsumPhoto: Decodable, Hashable, Sendable {
     /// The unique identifier for this photo.
     public let id: String
     /// The photographer's name.
@@ -31,7 +31,7 @@ public struct PicsumPhoto: Decodable, Hashable, Sendable {
 }
 
 /// Parameters for fetching a paginated list of photos.
-public struct PicsumPhotosRequest: Sendable {
+public struct AWPicsumPhotosRequest: Sendable {
     /// The page number to fetch (1-based).
     public let page: Int
     /// The number of photos per page. Picsum's maximum is 100.
@@ -44,7 +44,7 @@ public struct PicsumPhotosRequest: Sendable {
 }
 
 /// Parameters for fetching info about a single photo by its ID.
-public struct PicsumPhotoRequest: Sendable {
+public struct AWPicsumPhotoRequest: Sendable {
     /// The Picsum photo ID (e.g. `"0"`, `"237"`).
     public let id: String
 

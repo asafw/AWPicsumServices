@@ -2,17 +2,17 @@ import Foundation
 import Observation
 import AWPicsumServices
 
-/// Drives the demo UI. Conforms to `PicsumPhotosProtocol` so it exercises the
+/// Drives the demo UI. Conforms to `AWPicsumPhotosProtocol` so it exercises the
 /// full public API surface of AWPicsumServices via the mixin pattern.
 @Observable
-final class DemoViewModel: PicsumPhotosProtocol {
+final class DemoViewModel: AWPicsumPhotosProtocol {
 
-    // PicsumPhotosProtocol — URLSession.shared is sufficient for the demo.
+    // AWPicsumPhotosProtocol — URLSession.shared is sufficient for the demo.
     var urlSession: URLSession { .shared }
 
     // MARK: - Pagination state
 
-    var photos: [PicsumPhoto] = []
+    var photos: [AWPicsumPhoto] = []
     var isLoading: Bool = false
     var errorMessage: String? = nil
 
@@ -21,7 +21,7 @@ final class DemoViewModel: PicsumPhotosProtocol {
 
     // MARK: - Detail state
 
-    var selectedPhoto: PicsumPhoto? = nil
+    var selectedPhoto: AWPicsumPhoto? = nil
     var detailImageData: Data? = nil
     var isLoadingDetail: Bool = false
     var detailError: String? = nil
@@ -64,7 +64,7 @@ final class DemoViewModel: PicsumPhotosProtocol {
         Task { @MainActor in
             do {
                 let newPhotos = try await getPhotos(
-                    photosRequest: PicsumPhotosRequest(page: currentPage, limit: pageSize)
+                    photosRequest: AWPicsumPhotosRequest(page: currentPage, limit: pageSize)
                 )
                 photos.append(contentsOf: newPhotos)
                 if !newPhotos.isEmpty { currentPage += 1 }
@@ -75,7 +75,7 @@ final class DemoViewModel: PicsumPhotosProtocol {
         }
     }
 
-    func selectPhoto(_ photo: PicsumPhoto) {
+    func selectPhoto(_ photo: AWPicsumPhoto) {
         selectedPhoto = photo
         detailImageData = nil
         detailError = nil
@@ -84,7 +84,7 @@ final class DemoViewModel: PicsumPhotosProtocol {
         Task { @MainActor in
             do {
                 let urlString = photo.imageURLString(width: 800, height: 600)
-                guard let url = URL(string: urlString) else { throw PicsumAPIError.parsingError }
+                guard let url = URL(string: urlString) else { throw AWPicsumAPIError.parsingError }
                 detailImageData = try await downloadImageData(from: url)
             } catch {
                 detailError = error.localizedDescription
@@ -93,7 +93,7 @@ final class DemoViewModel: PicsumPhotosProtocol {
         }
     }
 
-    func loadThumbnailData(for photo: PicsumPhoto) async -> Data? {
+    func loadThumbnailData(for photo: AWPicsumPhoto) async -> Data? {
         guard let url = URL(string: photo.imageURLString(width: 200, height: 150)) else {
             return nil
         }

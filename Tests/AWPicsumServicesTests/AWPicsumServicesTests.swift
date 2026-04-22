@@ -59,7 +59,7 @@ final class PicsumEndpointsTests: XCTestCase {
     }
 }
 
-// MARK: - PicsumPhoto
+// MARK: - AWPicsumPhoto
 
 final class PicsumPhotoTests: XCTestCase {
 
@@ -70,7 +70,7 @@ final class PicsumPhotoTests: XCTestCase {
         height: Int = 2333,
         url: String = "https://unsplash.com/photos/photo",
         downloadURL: String = "https://picsum.photos/id/237/3500/2333"
-    ) -> PicsumPhoto {
+    ) -> AWPicsumPhoto {
         let json = """
         {
             "id": "\(id)",
@@ -81,7 +81,7 @@ final class PicsumPhotoTests: XCTestCase {
             "download_url": "\(downloadURL)"
         }
         """
-        return try! JSONDecoder().decode(PicsumPhoto.self, from: Data(json.utf8))
+        return try! JSONDecoder().decode(AWPicsumPhoto.self, from: Data(json.utf8))
     }
 
     func testDecodingFromJSON() {
@@ -100,7 +100,7 @@ final class PicsumPhotoTests: XCTestCase {
         {"id":"1","author":"A","width":100,"height":100,
          "url":"https://u.com","download_url":"https://picsum.photos/id/1/100/100"}
         """
-        let photo = try! JSONDecoder().decode(PicsumPhoto.self, from: Data(json.utf8))
+        let photo = try! JSONDecoder().decode(AWPicsumPhoto.self, from: Data(json.utf8))
         XCTAssertEqual(photo.downloadURL, "https://picsum.photos/id/1/100/100")
     }
 
@@ -125,29 +125,29 @@ final class PicsumPhotoTests: XCTestCase {
     }
 }
 
-// MARK: - PicsumPhotosRequest
+// MARK: - AWPicsumPhotosRequest
 
 final class PicsumPhotosRequestTests: XCTestCase {
 
     func testDefaultLimit() {
-        let req = PicsumPhotosRequest(page: 1)
+        let req = AWPicsumPhotosRequest(page: 1)
         XCTAssertEqual(req.limit, 30)
         XCTAssertEqual(req.page, 1)
     }
 
     func testCustomLimit() {
-        let req = PicsumPhotosRequest(page: 3, limit: 10)
+        let req = AWPicsumPhotosRequest(page: 3, limit: 10)
         XCTAssertEqual(req.page, 3)
         XCTAssertEqual(req.limit, 10)
     }
 }
 
-// MARK: - PicsumPhotoRequest
+// MARK: - AWPicsumPhotoRequest
 
 final class PicsumPhotoRequestTests: XCTestCase {
 
     func testIDStoredCorrectly() {
-        let req = PicsumPhotoRequest(id: "237")
+        let req = AWPicsumPhotoRequest(id: "237")
         XCTAssertEqual(req.id, "237")
     }
 }
@@ -170,7 +170,7 @@ final class PicsumAPIServiceTests: XCTestCase {
 
     func testGetPhotosRequestContainsPageQueryParam() async throws {
         CapturingURLProtocol.stubbedData = Data("[]".utf8)
-        _ = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 2, limit: 10))
+        _ = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 2, limit: 10))
         let url = try XCTUnwrap(CapturingURLProtocol.lastRequest?.url)
         XCTAssertTrue(url.absoluteString.contains("page=2"), "Expected page=2 in \(url)")
         XCTAssertTrue(url.absoluteString.contains("limit=10"), "Expected limit=10 in \(url)")
@@ -178,14 +178,14 @@ final class PicsumAPIServiceTests: XCTestCase {
 
     func testGetPhotosRequestURLContainsListPath() async throws {
         CapturingURLProtocol.stubbedData = Data("[]".utf8)
-        _ = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+        _ = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
         let url = try XCTUnwrap(CapturingURLProtocol.lastRequest?.url)
         XCTAssertTrue(url.absoluteString.contains("/v2/list"), "Expected /v2/list in \(url)")
     }
 
     func testGetPhotosRequestHostIsPicsumPhotos() async throws {
         CapturingURLProtocol.stubbedData = Data("[]".utf8)
-        _ = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+        _ = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
         let url = try XCTUnwrap(CapturingURLProtocol.lastRequest?.url)
         XCTAssertEqual(url.host, "picsum.photos")
     }
@@ -202,7 +202,7 @@ final class PicsumAPIServiceTests: XCTestCase {
         ]
         """.utf8)
 
-        let photos = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+        let photos = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
         XCTAssertEqual(photos.count, 2)
         XCTAssertEqual(photos[0].id, "1")
         XCTAssertEqual(photos[0].author, "Alice")
@@ -211,7 +211,7 @@ final class PicsumAPIServiceTests: XCTestCase {
 
     func testGetPhotosEmptyArrayReturnsEmptyArray() async throws {
         CapturingURLProtocol.stubbedData = Data("[]".utf8)
-        let photos = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 999))
+        let photos = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 999))
         XCTAssertTrue(photos.isEmpty)
     }
 
@@ -219,9 +219,9 @@ final class PicsumAPIServiceTests: XCTestCase {
         CapturingURLProtocol.stubbedStatusCode = 500
         CapturingURLProtocol.stubbedData = Data()
         do {
-            _ = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+            _ = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
             XCTFail("Expected throw")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .networkError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -231,9 +231,9 @@ final class PicsumAPIServiceTests: XCTestCase {
     func testGetPhotosThrowsParsingErrorOnMalformedJSON() async {
         CapturingURLProtocol.stubbedData = Data("not_json".utf8)
         do {
-            _ = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+            _ = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
             XCTFail("Expected throw")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .parsingError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -247,7 +247,7 @@ final class PicsumAPIServiceTests: XCTestCase {
         {"id":"237","author":"Tanner Mardis","width":3500,"height":2333,
          "url":"https://u.com","download_url":"https://picsum.photos/id/237/3500/2333"}
         """.utf8)
-        _ = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: "237"))
+        _ = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "237"))
         let url = try XCTUnwrap(CapturingURLProtocol.lastRequest?.url)
         XCTAssertTrue(url.absoluteString.contains("/id/237/info"), "Expected /id/237/info in \(url)")
     }
@@ -257,7 +257,7 @@ final class PicsumAPIServiceTests: XCTestCase {
         {"id":"237","author":"Tanner Mardis","width":3500,"height":2333,
          "url":"https://u.com","download_url":"https://picsum.photos/id/237/3500/2333"}
         """.utf8)
-        let photo = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: "237"))
+        let photo = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "237"))
         XCTAssertEqual(photo.id, "237")
         XCTAssertEqual(photo.author, "Tanner Mardis")
         XCTAssertEqual(photo.width, 3500)
@@ -267,9 +267,9 @@ final class PicsumAPIServiceTests: XCTestCase {
         CapturingURLProtocol.stubbedStatusCode = 404
         CapturingURLProtocol.stubbedData = Data()
         do {
-            _ = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: "bad_id"))
+            _ = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "bad_id"))
             XCTFail("Expected throw")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .networkError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -279,9 +279,9 @@ final class PicsumAPIServiceTests: XCTestCase {
     func testGetPhotoThrowsParsingErrorOnMalformedJSON() async {
         CapturingURLProtocol.stubbedData = Data("{bad".utf8)
         do {
-            _ = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: "1"))
+            _ = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "1"))
             XCTFail("Expected throw")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .parsingError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -305,7 +305,7 @@ final class PicsumAPIServiceTests: XCTestCase {
         do {
             _ = try await service.downloadImageData(from: url)
             XCTFail("Expected throw")
-        } catch let error as PicsumAPIError {
+        } catch let error as AWPicsumAPIError {
             XCTAssertEqual(error, .networkError)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -321,11 +321,11 @@ final class PicsumAPIServiceTests: XCTestCase {
     }
 }
 
-// MARK: - PicsumPhotosProtocol (mixin conformance via protocol extension)
+// MARK: - AWPicsumPhotosProtocol (mixin conformance via protocol extension)
 
 final class PicsumPhotosProtocolTests: XCTestCase {
 
-    private class MockConformer: PicsumPhotosProtocol {
+    private class MockConformer: AWPicsumPhotosProtocol {
         var urlSession: URLSession
         init(session: URLSession) { self.urlSession = session }
     }
@@ -342,7 +342,7 @@ final class PicsumPhotosProtocolTests: XCTestCase {
 
     func testGetPhotosRoutesThroughURLSession() async throws {
         CapturingURLProtocol.stubbedData = Data("[]".utf8)
-        _ = try await conformer.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+        _ = try await conformer.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
         XCTAssertNotNil(CapturingURLProtocol.lastRequest)
     }
 
@@ -351,7 +351,7 @@ final class PicsumPhotosProtocolTests: XCTestCase {
         {"id":"1","author":"A","width":100,"height":100,
          "url":"https://u.com","download_url":"https://picsum.photos/id/1/100/100"}
         """.utf8)
-        _ = try await conformer.getPhoto(photoRequest: PicsumPhotoRequest(id: "1"))
+        _ = try await conformer.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "1"))
         XCTAssertNotNil(CapturingURLProtocol.lastRequest)
     }
 
@@ -364,23 +364,23 @@ final class PicsumPhotosProtocolTests: XCTestCase {
 
     func testDefaultURLSessionIsShared() {
         // A conformer with no urlSession override should use .shared
-        class Bare: PicsumPhotosProtocol {}
+        class Bare: AWPicsumPhotosProtocol {}
         let bare = Bare()
         XCTAssertEqual(bare.urlSession, URLSession.shared)
     }
 }
 
-// MARK: - PicsumService
+// MARK: - AWPicsumService
 
 final class PicsumServiceTests: XCTestCase {
 
     func testPicsumServiceConformsToPicsumPhotosProtocol() {
-        let service = PicsumService()
-        XCTAssertNotNil(service as PicsumPhotosProtocol)
+        let service = AWPicsumService()
+        XCTAssertNotNil(service as AWPicsumPhotosProtocol)
     }
 
     func testPicsumServiceIsInstantiableWithNoArguments() {
-        XCTAssertNotNil(PicsumService())
+        XCTAssertNotNil(AWPicsumService())
     }
 
     func testPicsumServiceGetPhotosReturnsPhotosViaInjectedSession() async throws {
@@ -391,31 +391,31 @@ final class PicsumServiceTests: XCTestCase {
         [{"id":"5","author":"Eve","width":500,"height":400,
           "url":"https://u.com","download_url":"https://picsum.photos/id/5/500/400"}]
         """.utf8)
-        let service = PicsumService(urlSession: URLSession(configuration: config))
-        let photos = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+        let service = AWPicsumService(urlSession: URLSession(configuration: config))
+        let photos = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
         XCTAssertEqual(photos.count, 1)
         XCTAssertEqual(photos.first?.id, "5")
     }
 }
 
-// MARK: - PicsumAPIError
+// MARK: - AWPicsumAPIError
 
 final class PicsumAPIErrorTests: XCTestCase {
 
     func testParsingErrorIsEquatable() {
-        XCTAssertEqual(PicsumAPIError.parsingError, PicsumAPIError.parsingError)
+        XCTAssertEqual(AWPicsumAPIError.parsingError, AWPicsumAPIError.parsingError)
     }
 
     func testNetworkErrorIsEquatable() {
-        XCTAssertEqual(PicsumAPIError.networkError, PicsumAPIError.networkError)
+        XCTAssertEqual(AWPicsumAPIError.networkError, AWPicsumAPIError.networkError)
     }
 
     func testErrorsAreNotEqual() {
-        XCTAssertNotEqual(PicsumAPIError.parsingError, PicsumAPIError.networkError)
+        XCTAssertNotEqual(AWPicsumAPIError.parsingError, AWPicsumAPIError.networkError)
     }
 
     func testParsingErrorConformsToError() {
-        let error: Error = PicsumAPIError.parsingError
+        let error: Error = AWPicsumAPIError.parsingError
         XCTAssertNotNil(error)
     }
 }
