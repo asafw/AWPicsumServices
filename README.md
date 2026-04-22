@@ -1,7 +1,7 @@
 # AWPicsumServices
 
 A Swift Package for integrating the [Lorem Picsum](https://picsum.photos) photo API in iOS and macOS applications. Has no external dependencies.
-Uses a **protocol mixin pattern** — conform any Swift type to `PicsumPhotosProtocol`
+Uses a **protocol mixin pattern** — conform any Swift type to `AWPicsumPhotosProtocol`
 and get full API access through protocol extension default implementations. No subclassing
 or dependency injection required.
 
@@ -12,8 +12,8 @@ or dependency injection required.
 - Download resized images at arbitrary dimensions — no API key required
 - Zero external dependencies (`Foundation` only)
 - `async/await` throughout
-- iOS 16+ and macOS 12+
-- Includes `PicsumService`, a ready-made concrete type
+- iOS 17+ and macOS 14+
+- Includes `AWPicsumService`, a ready-made concrete type
 
 ## Quick Start
 
@@ -30,13 +30,13 @@ Add the package URL to your Xcode project or `Package.swift`:
 ```swift
 import AWPicsumServices
 
-let service = PicsumService()
+let service = AWPicsumService()
 
 // Fetch the first page of photos (30 per page by default)
-let photos = try await service.getPhotos(photosRequest: PicsumPhotosRequest(page: 1))
+let photos = try await service.getPhotos(photosRequest: AWPicsumPhotosRequest(page: 1))
 
 // Fetch a single photo's metadata
-let photo = try await service.getPhoto(photoRequest: PicsumPhotoRequest(id: "237"))
+let photo = try await service.getPhoto(photoRequest: AWPicsumPhotoRequest(id: "237"))
 
 // Download image bytes at a custom size
 let url = URL(string: photo.imageURLString(width: 800, height: 600))!
@@ -46,7 +46,8 @@ let data = try await service.downloadImageData(from: url)
 ### Conform your own type (mixin pattern)
 
 ```swift
-class MyViewModel: ObservableObject, PicsumPhotosProtocol {
+@Observable
+class MyViewModel: AWPicsumPhotosProtocol {
     // All three methods are available via protocol extension defaults
 }
 ```
@@ -54,14 +55,15 @@ class MyViewModel: ObservableObject, PicsumPhotosProtocol {
 Override `urlSession` to inject a custom session for testing:
 
 ```swift
-class MyViewModel: PicsumPhotosProtocol {
+@Observable
+class MyViewModel: AWPicsumPhotosProtocol {
     var urlSession: URLSession { myCustomSession }
 }
 ```
 
 ## API
 
-### `PicsumPhotosProtocol`
+### `AWPicsumPhotosProtocol`
 
 | Method | Description |
 |---|---|
@@ -69,7 +71,7 @@ class MyViewModel: PicsumPhotosProtocol {
 | `getPhoto(photoRequest:)` | Single photo metadata by ID |
 | `downloadImageData(from:)` | Raw image bytes, with `.returnCacheDataElseLoad` caching |
 
-### `PicsumPhoto`
+### `AWPicsumPhoto`
 
 | Property | Type | Description |
 |---|---|---|
@@ -81,7 +83,7 @@ class MyViewModel: PicsumPhotosProtocol {
 | `downloadURL` | `String` | Direct full-resolution download URL |
 | `imageURLString(width:height:)` | `String` | Resized image URL at any dimensions |
 
-### `PicsumAPIError`
+### `AWPicsumAPIError`
 
 | Case | When |
 |---|---|
