@@ -4,35 +4,45 @@
 > Update this file at the end of every session that makes code changes.
 
 ## Latest commit
-- **Hash:** (initial)
+- **Hash:** e0be8dd
 - **Branch:** main
-- **Message:** feat: initial AWPicsumServices v1.0
+- **Message:** chore: add .gitignore, remove .build from tracking
 
 ## Repository layout
 
 ```
 AWPicsumServices/
 ├── Sources/AWPicsumServices/
-│   ├── PicsumAPIError.swift        ← PicsumAPIError (parsingError, networkError)
+│   ├── AWPicsumAPIError.swift      ← AWPicsumAPIError (parsingError, networkError)
 │   ├── PicsumAPIService.swift      ← Internal HTTP layer
 │   ├── PicsumEndpoints.swift       ← URL constants (internal caseless enum)
-│   ├── PicsumModels.swift          ← PicsumPhoto, PicsumPhotosRequest, PicsumPhotoRequest
-│   ├── PicsumPhotosProtocol.swift  ← Public protocol + default impl
-│   └── PicsumService.swift         ← public final class PicsumService: PicsumPhotosProtocol
+│   ├── AWPicsumModels.swift        ← AWPicsumPhoto, AWPicsumPhotosRequest, AWPicsumPhotoRequest
+│   ├── AWPicsumPhotosProtocol.swift ← Public protocol + default impl
+│   └── AWPicsumService.swift       ← public final class AWPicsumService: AWPicsumPhotosProtocol
 ├── Tests/AWPicsumServicesTests/
-│   └── AWPicsumServicesTests.swift ← 37 unit tests (CapturingURLProtocol, no network)
+│   └── AWPicsumServicesTests.swift ← 46 unit tests (CapturingURLProtocol, no network)
 ├── Tests/AWPicsumServicesIntegrationTests/
 │   └── AWPicsumServicesIntegrationTests.swift ← 7 live tests, auto-skip when CI=true
 ├── Examples/PicsumDemoApp/         ← Shared SwiftUI sources (macOS + iOS)
 │   ├── PicsumDemoApp.swift
 │   ├── ContentView.swift
-│   ├── DemoViewModel.swift         ← ObservableObject, PicsumPhotosProtocol conformance
+│   ├── DemoViewModel.swift         ← @Observable, AWPicsumPhotosProtocol conformance
 │   ├── PhotoGridView.swift         ← LazyVGrid with infinite scroll
 │   ├── PhotoDetailView.swift       ← Author, dimensions, Unsplash link
 │   └── PlatformImage.swift         ← UIImage/NSImage cross-platform bridge
 ├── Examples/PicsumDemoApp-iOS/
-│   └── project.yml                 ← XcodeGen spec
-├── Package.swift                   ← swift-tools-version:5.9, iOS 16+, macOS 12+
+│   ├── project.yml                 ← XcodeGen spec (iOS 17+)
+│   └── Screenshots/PicsumDemoScreenshots.swift ← UITest screenshot tests
+├── scripts/
+│   ├── macos_screenshots.sh        ← capture_macos_window.py, 2 screenshots
+│   ├── ios_screenshots.sh          ← run UITests, extract PNGs from .xcresult
+│   ├── capture_macos_window.py     ← screencapture -l <windowID>
+│   └── extract_ios_screenshots.py  ← extract PNGs from .xcresult bundles
+├── screenshots/
+│   ├── macos/                      ← macOS screenshots
+│   └── ios/                        ← iOS screenshots
+├── Package.swift                   ← swift-tools-version:5.9, iOS 17+, macOS 14+
+├── .gitignore                      ← .build/, *.xcodeproj/, DerivedData/ etc.
 ├── README.md
 ├── AGENTS.md
 └── .github/
@@ -42,38 +52,38 @@ AWPicsumServices/
 ```
 
 ## Test counts
-- Unit tests: **37** (AWPicsumServicesTests)
+- Unit tests: **46** (AWPicsumServicesTests)
 - Integration tests: **7** (AWPicsumServicesIntegrationTests — auto-skip in CI)
 
 ## Public API surface
 
-### `PicsumPhotosProtocol`
-- `getPhotos(photosRequest: PicsumPhotosRequest) async throws -> [PicsumPhoto]`
-- `getPhoto(photoRequest: PicsumPhotoRequest) async throws -> PicsumPhoto`
+### `AWPicsumPhotosProtocol`
+- `getPhotos(photosRequest: AWPicsumPhotosRequest) async throws -> [AWPicsumPhoto]`
+- `getPhoto(photoRequest: AWPicsumPhotoRequest) async throws -> AWPicsumPhoto`
 - `downloadImageData(from: URL) async throws -> Data`
 - `var urlSession: URLSession` (default: `.shared`)
 
-### `PicsumService`
+### `AWPicsumService`
 ```swift
-public final class PicsumService: PicsumPhotosProtocol {
+public final class AWPicsumService: AWPicsumPhotosProtocol {
     public let urlSession: URLSession
     public init(urlSession: URLSession = .shared)
 }
 ```
 
-### `PicsumPhoto`
+### `AWPicsumPhoto`
 - `id: String`, `author: String`, `width: Int`, `height: Int`
 - `url: String` (Unsplash page), `downloadURL: String`
 - `imageURLString(width:height:) -> String`
-- Conforms to `Decodable`, `Hashable`, `Sendable`, `Identifiable` (via demo app extension)
+- Conforms to `Decodable`, `Hashable`, `Identifiable`, `Sendable`
 
-### `PicsumPhotosRequest`
+### `AWPicsumPhotosRequest`
 - `page: Int`, `limit: Int` (default: 30)
 
-### `PicsumPhotoRequest`
+### `AWPicsumPhotoRequest`
 - `id: String`
 
-### `PicsumAPIError`
+### `AWPicsumAPIError`
 - `parsingError`, `networkError`
 - Conforms to `Error`, `Equatable`
 
@@ -84,14 +94,19 @@ public final class PicsumService: PicsumPhotosProtocol {
 - **No API key required** — Lorem Picsum is a free, open API.
 - **`download_url` CodingKey** — JSON field maps to Swift `downloadURL` via `CodingKeys`.
 - **Integration tests skip in CI** — check `ProcessInfo.processInfo.environment["CI"]`.
+- **`AWPicsumPhoto` is `Identifiable`** — conforms in the library (not the demo app).
+- **Demo app uses `@Observable`** — `DemoViewModel` uses Observation framework (iOS 17+/macOS 14+), no Combine.
+- **iOS 17+ / macOS 14+** — platforms bumped for `@Observable` and `NavigationStack`/`clipShape` APIs.
 
 ## Commit history
 | Hash | Message |
 |------|---------|
-| (initial) | feat: initial AWPicsumServices v1.0 |
+| e0be8dd | chore: add .gitignore, remove .build from tracking |
+| 7857a26 | refactor: add AW prefix to all public types |
+| 50fd067 | refactor(demo): replace ObservableObject/Combine with @Observable |
+| 4a482bd | docs: reword opening description |
+| 2dea55d | docs: move Screenshots section after Demo App |
 
 ## Pending / future work
-- macOS screenshots script (`scripts/macos_screenshots.sh`)
-- iOS screenshots script (`scripts/ios_screenshots.sh` + UITest target)
 - GitHub Actions CI (unit tests on macOS)
 - SPM release tag v1.0.0

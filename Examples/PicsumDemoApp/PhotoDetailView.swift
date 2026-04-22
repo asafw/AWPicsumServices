@@ -31,7 +31,7 @@ struct PhotoDetailView: View {
             Image(platformImage: img)
                 .resizable()
                 .scaledToFit()
-                .cornerRadius(10)
+                .clipShape(.rect(cornerRadius: 10))
                 .shadow(radius: 4)
         } else if let err = viewModel.detailError {
             Label(err, systemImage: "exclamationmark.triangle")

@@ -1,7 +1,7 @@
 import Foundation
 
 /// A single photo from the Lorem Picsum library.
-public struct AWPicsumPhoto: Decodable, Hashable, Sendable {
+public struct AWPicsumPhoto: Decodable, Hashable, Identifiable, Sendable {
     /// The unique identifier for this photo.
     public let id: String
     /// The photographer's name.

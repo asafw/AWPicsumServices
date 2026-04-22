@@ -45,7 +45,7 @@ struct PhotoGridView: View {
                     } label: {
                         PhotoThumbnailView(photo: photo, viewModel: viewModel)
                             .aspectRatio(4 / 3, contentMode: .fit)
-                            .cornerRadius(6)
+                            .clipShape(.rect(cornerRadius: 6))
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel("Photo by \(photo.author)")

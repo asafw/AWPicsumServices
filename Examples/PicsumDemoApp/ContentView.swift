@@ -12,7 +12,7 @@ struct ContentView: View {
         .onAppear { viewModel.loadFirstPage() }
         .sheet(item: $viewModel.selectedPhoto) { photo in
             #if os(iOS)
-            NavigationView {
+            NavigationStack {
                 PhotoDetailView(photo: photo, viewModel: viewModel)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -68,4 +68,4 @@ struct ContentView: View {
     }
 }
 
-extension AWPicsumPhoto: Identifiable {}
+
