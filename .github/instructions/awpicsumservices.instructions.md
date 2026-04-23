@@ -47,7 +47,15 @@ AWPicsumServices/
 ├── Package.swift                   ← swift-tools-version:5.9, iOS 17+, macOS 14+
 ├── .gitignore
 ├── README.md
-└── AGENTS.md
+├── AGENTS.md
+└── .github/
+    ├── CONTEXT.md
+    ├── workflows/
+    │   ├── ios.yml                 ← iOS CI (macos-15, xcodebuild, AWPicsumServicesTests only)
+    │   ├── macos.yml               ← macOS CI (macos-15, xcodebuild, AWPicsumServicesTests only)
+    │   └── swift.yml               ← Swift Package CI (macos-15, swift test, integration auto-skips via CI env)
+    └── instructions/
+        └── awpicsumservices.instructions.md
 ```
 
 ---
