@@ -4,9 +4,9 @@
 > Update this file at the end of every session that makes code changes.
 
 ## Latest commit
-- **Hash:** 920530d
+- **Hash:** (pending)
 - **Branch:** main
-- **Message:** ci: add iOS and macOS GitHub Actions workflows
+- **Message:** fix(ci): remove --filter from swift test; integration tests auto-skip via CI env
 
 ## Repository layout
 
@@ -46,9 +46,12 @@ AWPicsumServices/
 ├── README.md
 ├── AGENTS.md
 └── .github/
-    ├── CONTEXT.md                  ← This file    ├── workflows/
-    │   ├── ios.yml                 ← iOS CI (macos-15, xcodebuild, unit tests only)
-    │   └── macos.yml               ← macOS CI (macos-15, xcodebuild, unit tests only)    └── instructions/
+    ├── CONTEXT.md                  ← This file
+    ├── workflows/
+    │   ├── ios.yml                 ← iOS CI (macos-15, xcodebuild, AWPicsumServicesTests only)
+    │   ├── macos.yml               ← macOS CI (macos-15, xcodebuild, AWPicsumServicesTests only)
+    │   └── swift.yml               ← Swift Package CI (macos-15, swift test, integration auto-skips via CI env)
+    └── instructions/
         └── awpicsumservices.instructions.md
 ```
 
@@ -102,14 +105,14 @@ public final class AWPicsumService: AWPicsumPhotosProtocol {
 ## Commit history
 | Hash | Message |
 |------|---------|
+| (pending) | fix(ci): remove --filter from swift test; integration tests auto-skip via CI env |
+| 2b24962 | ci: add Swift Package CI workflow and badge |
+| 02d4c2c | docs(readme): add iOS and macOS CI badges |
 | 920530d | ci: add iOS and macOS GitHub Actions workflows |
 | b0eba30 | docs(readme): update all type names to AW prefix, fix platform versions, update mixin example |
 | 78b19c5 | audit: fix deprecated APIs, add Identifiable to library, update docs |
 | e0be8dd | chore: add .gitignore, remove .build from tracking |
 | 7857a26 | refactor: add AW prefix to all public types |
-| 50fd067 | refactor(demo): replace ObservableObject/Combine with @Observable |
-| 4a482bd | docs: reword opening description |
-| 2dea55d | docs: move Screenshots section after Demo App |
 
 ## Pending / future work
 - SPM release tag v1.0.0

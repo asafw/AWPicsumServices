@@ -17,4 +17,4 @@ jobs:
         run: swift build
 
       - name: Test
-        run: swift test --filter AWPicsumServicesTests
+        run: swift test
