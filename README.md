@@ -2,6 +2,7 @@
 
 ![iOS CI](https://github.com/asafw/AWPicsumServices/actions/workflows/ios.yml/badge.svg?branch=main)
 ![macOS CI](https://github.com/asafw/AWPicsumServices/actions/workflows/macos.yml/badge.svg?branch=main)
+![Swift Package CI](https://github.com/asafw/AWPicsumServices/actions/workflows/swift.yml/badge.svg?branch=main)
 
 A Swift Package for integrating the [Lorem Picsum](https://picsum.photos) photo API in iOS and macOS applications. Has no external dependencies.
 Uses a **protocol mixin pattern** — conform any Swift type to `AWPicsumPhotosProtocol`
